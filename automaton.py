@@ -7,7 +7,9 @@ import time
 import argparse
 import math
 # import pygame_plot
+from numba import jit
 
+@jit(nopython=True, parallel=True, fastmath=True, nogil=True)
 def CellularAutomaton(rule,init,t):
     """ rule : [int] choice of rule between 0 and 255
         init : [int] choice of initial condition either 0 or 1
@@ -23,7 +25,7 @@ def CellularAutomaton(rule,init,t):
     case_val = lambda case : 7 - ((case[0])*4+(case[1])*2+(case[2]))
     pad = 3
     center = math.floor((_iterations*2+pad)/2)
-    grid = np.zeros((_iterations, _iterations*2+pad),dtype='i1')
+    grid = np.zeros((_iterations, _iterations*2+pad))
     grid[0][center] = init
     for row_idx,row in enumerate(grid):
         if row_idx == 0:
@@ -33,9 +35,9 @@ def CellularAutomaton(rule,init,t):
                 if col_idx < _iterations-(row_idx-1) or col_idx > 2*_iterations-(_iterations - (row_idx-1)):
                     pass
                 else:
-                    grid[row_idx][col_idx] = case_val([int(grid[row_idx-1][col_idx-1]), 
+                    grid[row_idx][col_idx] = binary_rule[case_val([int(grid[row_idx-1][col_idx-1]), 
                                                        int(grid[row_idx-1][col_idx]),
-                                                       int(grid[row_idx-1][col_idx+1])])
+                                                       int(grid[row_idx-1][col_idx+1])])]
     return grid
 
 if __name__ == '__main__':
