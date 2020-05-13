@@ -32,10 +32,10 @@ def CellularAutomaton(rule,init,t):
             pass
         else:
             for col_idx,col in enumerate(row):
-                if col_idx < _iterations-(row_idx) or col_idx > 2*_iterations-(_iterations - (row_idx)):
-                    pass
-                else:
-                    grid[row_idx][col_idx] = binary_rule[case_val([int(grid[row_idx-1][col_idx-1]), 
+                #if col_idx < _iterations-(row_idx) or col_idx > 2*_iterations-(_iterations - (row_idx)):
+                #    pass
+                #else:
+                grid[row_idx][col_idx] = binary_rule[case_val([int(grid[row_idx-1][col_idx-1]), 
                                                        int(grid[row_idx-1][col_idx]),
                                                        int(grid[row_idx-1][col_idx+1])])]
     return grid
