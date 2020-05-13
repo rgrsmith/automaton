@@ -23,7 +23,7 @@ def CellularAutomaton(rule,init,t):
     _iterations = t
     binary_rule = [_rule >> i & 1 for i in range(7,-1,-1)]
     case_val = lambda case : 7 - ((case[0])*4+(case[1])*2+(case[2]))
-    pad = 3
+    pad = 1
     center = math.floor((_iterations*2+pad)/2)
     grid = np.zeros((_iterations, _iterations*2+pad))
     grid[0][center] = init
@@ -32,7 +32,7 @@ def CellularAutomaton(rule,init,t):
             pass
         else:
             for col_idx,col in enumerate(row):
-                if col_idx < _iterations-(row_idx-1) or col_idx > 2*_iterations-(_iterations - (row_idx-1)):
+                if col_idx < _iterations-(row_idx) or col_idx > 2*_iterations-(_iterations - (row_idx)):
                     pass
                 else:
                     grid[row_idx][col_idx] = binary_rule[case_val([int(grid[row_idx-1][col_idx-1]), 
