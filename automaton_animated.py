@@ -36,6 +36,8 @@ if __name__ == '__main__':
             [1, 0, 1],
             [0, 1, 0]), dtype="int")
         grid = np.zeros((iterations, iterations*2+pad))
+        center = math.floor((iterations*2+pad)/2)
+        grid[math.floor(iterations/2)][center] = init
         framerate = 100
     else:                                                       # CHANGE THESE VALUES
         rule = int(args.rule)
