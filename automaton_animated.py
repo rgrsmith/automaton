@@ -60,6 +60,11 @@ if __name__ == '__main__':
     print("---------")
     print("Binary Rule: %s" % binary_rule)
     print("Kernel:\n%s" % kernel)
+    if binary_rule[np.sum(kernel)] == 0 and binary_rule[0] == 1:
+        flag = input("SEIZURE WARNING! Proceed? (y/n): ")
+        if flag not in 'yY':
+            print("Leaving program")
+            quit()
     print("---------")
 
     s = time.time()

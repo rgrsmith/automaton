@@ -1,5 +1,6 @@
 Note: can edit kernel and grid manually to change evolution and initial conditions (eg probability distribution of (1,0) in grid or initial seed)
 
+Seizure warning will print, followed by short delay, if the background will quickly oscillate black/white (not guaranteed to cover all cases)
 
 -rs should be a val between 0 and 1... argparse got a little gnarly
 
