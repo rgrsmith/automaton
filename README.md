@@ -5,10 +5,25 @@ Seizure warning will print, followed by short delay, if the background will quic
 -rs should be a val between 0 and 1... argparse got a little gnarly
 
 
-Cool Rules for center seed:
+Cool Rules for center seed and this kernel:
+Kernel:
+[[0 1 0]
+ [1 0 1]
+ [0 1 0]]
+---------
     ./automaton_animated.py -r 110 -f 100 -i 1000
-
     ./automaton_animated.py -r 222 -f 100 -i 1000 -rs .001
+
+
+cooll other rules:
+./automaton_animated.py -r 30 -f 100 -i 1000 -rs .99999
+---------
+Binary Rule: [0 1 1 1 1 0 0 0]
+Kernel:
+[[ 1  1  0]
+ [ 1 -1  1]
+ [ 0  1  1]]
+---------
 
 
 usage: automaton_animated.py [-h] [-r RULE] [-i ITERATIONS] [-f FRAMERATE]
