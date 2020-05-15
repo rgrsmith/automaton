@@ -4,6 +4,10 @@ Note: can edit kernel and grid manually to change evolution and initial conditio
 -rs should be a val between 0 and 1... argparse got a little gnarly
 
 
+Cool Rules for center seed:
+    ./automaton_animated.py -r 110 -f 100 -i 1000
+
+    ./automaton_animated.py -r 222 -f 100 -i 1000 -rs .001
 
 
 usage: automaton_animated.py [-h] [-r RULE] [-i ITERATIONS] [-f FRAMERATE]

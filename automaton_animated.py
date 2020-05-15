@@ -57,9 +57,12 @@ if __name__ == '__main__':
     binary_rule = np.flip([rule >> i & 1 for i in range(7,-1,-1)])
     # binary_rule = np.logical_not(binary_rule).astype(int)
 
+    print("---------")
+    print("Binary Rule: %s" % binary_rule)
+    print("Kernel:\n%s" % kernel)
+    print("---------")
 
     s = time.time()
-
     while True:
         grid_correlated = cv2.filter2D(grid, -1, kernel).astype(int)
         grid = binary_rule[grid_correlated].astype(float)
