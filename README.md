@@ -25,6 +25,7 @@ Kernel:
  [ 0  1  1]]
 ---------
 
+- the above kernel with 33, 36, 40, 100 (with very high -rs), 100 (with rs of .01 = twinkly sky), 231 (rs .01) = crystallines,
 
 usage: automaton_animated.py [-h] [-r RULE] [-i ITERATIONS] [-f FRAMERATE]
                              [-d]
