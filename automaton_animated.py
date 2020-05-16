@@ -43,9 +43,9 @@ if __name__ == '__main__':
         rule = int(args.rule)
         iterations = int(args.iterations)
         kernel = np.array((
-            [0, 1, 0],
-            [1, 0, 1],
-            [0, 1, 0]), dtype="int")
+            [1, 1, 0],
+            [1, -1, 1],
+            [0, 1, 1]), dtype="int")
         framerate = int(args.framerate)
         if args.random_seed:
             grid = np.random.choice(2,2*iterations**2, p=[1-args.random_seed,args.random_seed]).reshape(iterations,2*iterations).astype(float)

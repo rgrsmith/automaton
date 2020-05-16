@@ -15,6 +15,18 @@ Kernel:
     ./automaton_animated.py -r 222 -f 100 -i 1000 -rs .001
 
 
+
+./automaton_animated.py -r 230 -f 100 -i 1000
+---------
+Binary Rule: [0 1 1 0 0 1 1 1]
+Kernel:
+[[ 1  1 -3]
+ [ 1 -1  1]
+ [-3  1  1]]
+---------
+
+
+
 cooll other rules:
 ./automaton_animated.py -r 30 -f 100 -i 1000 -rs .99999
 ---------
