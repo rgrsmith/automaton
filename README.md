@@ -77,7 +77,7 @@ Rules for kernel
 
 
 To Do:
-    - button to pickle/name/retrive fun states
+    - button to pickle/name/retrive fun states in a dataframe
     - button to randomize all
     - kernel entry box
     - grid size slider

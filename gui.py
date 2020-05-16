@@ -24,21 +24,23 @@ class GUI:
             print("%s : %s" % (key, val))
 
     def init_slider(self):
-        self.w1 = Scale(self.master, orient=HORIZONTAL, label='1\'s density', from_=0, to=len(self.slider_vals)-1, command=self.set_slider)
-        self.text = Label(self.top_frame, font=('Arial',18))
-        self.text.pack(side=RIGHT, expand=1, fill=BOTH)
+        self.w1 = Scale(self.top_frame, orient=HORIZONTAL, bd=2, showvalue=0, label='init density', from_=0, to=len(self.slider_vals)-1, command=self.set_slider)
+        self.text = Label(self.top_frame, font=('Arial',18), padx=50, pady=30)
+        self.text.pack(side=TOP)
         self.w1.set(0)
         self.w1.pack()
 
     def init_rule_box(self):
-        self.rule_box = Label(self.right_frame, text="Rule").grid(row=0)
+        self.rule_box = Label(self.right_frame, text="Rule", padx=50, pady=30).grid(row=0)
         self.rule_box_entry = Entry(self.right_frame)
+        #self.rule_box_entry.insert(END, '30')
+        #self.rule_box_entry.pack()
         self.rule_box_entry.grid(row=0, column=1)
 
     def set_slider(self,val):
         if int(val) == len(self.slider_vals)-1:
             self.params['random_seed'] = None
-            self.text.configure(text='%s' % self.slider_vals[int(val)])
+            self.text.configure(text='%s   ' % self.slider_vals[int(val)])
         else:
             self.params['random_seed'] = self.slider_vals[int(val)]
             self.text.configure(text='%.5f' % self.slider_vals[int(val)])
