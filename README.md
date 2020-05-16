@@ -38,6 +38,18 @@ Kernel:
 ---------
 
 - the above kernel with 33, 36, 40, 100 (with very high -rs), 100 (with rs of .01 = twinkly sky), 231 (rs .01) = crystallines,
+- 142, rs .00001
+- 148, rs .9999 (collisions grow to noise, orgaic boundaries)
+- 156, rs .999 (crystallin egrowth)
+- 158. rs .9999 corals
+- 160, rs .9999 solids (lower rs is growth terminating! where is thhe threshold?)
+- 152, rs .9999 solid but itnerferences turn to noise
+- 238, rs .00001 inverted of the above
+- 163, rs .9999 noise with thin crystal boundaries
+- 164, rs .99999 cool with small count, nicee interior pattern
+- 168, rs .99999 very stable, neat edge growth
+- 174 (175 too), .99999, entropy death
+- 222, .00001 noise with thin crystal boundaries
 
 usage: automaton_animated.py [-h] [-r RULE] [-i ITERATIONS] [-f FRAMERATE]
                              [-d]
