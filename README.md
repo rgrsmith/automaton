@@ -69,3 +69,17 @@ optional arguments:
                         Init with random seed: percent fill with 1s (very
                         big/small most interesting)
 
+
+Rules for kernel
+- sum of positive indices must be < 8
+- sum of negative indices must be > -8
+- 
+
+
+To Do:
+    - button to pickle/name/retrive fun states
+    - button to randomize all
+    - kernel entry box
+    - grid size slider
+    - framerate slider
+    - convert rule to slider?

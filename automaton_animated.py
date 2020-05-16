@@ -8,6 +8,7 @@ import argparse
 import math
 import cv2
 import imutils
+from gui import GUI
 
 class Range(object):
     def __init__(self, start, end):
@@ -27,40 +28,48 @@ if __name__ == '__main__':
 
     init = 1
     pad = 1
+    
+    gui = GUI(args.__dict__)
+    gui.update_gui()
 
-    if args.demo:
-        rule = 42
-        iterations = 500
-        kernel = np.array((
-            [0, 1, 0],
-            [1, 0, 1],
-            [0, 1, 0]), dtype="int")
-        grid = np.zeros((iterations, iterations*2+pad))
-        center = math.floor((iterations*2+pad)/2)
-        grid[math.floor(iterations/2)][center] = init
-        framerate = 100
-    else:                                                       # CHANGE THESE VALUES
-        rule = int(args.rule)
-        iterations = int(args.iterations)
-        kernel = np.array((
-            [1, 1, 0],
-            [1, -1, 1],
-            [0, 1, 1]), dtype="int")
-        framerate = int(args.framerate)
-        if args.random_seed:
-            grid = np.random.choice(2,2*iterations**2, p=[1-args.random_seed,args.random_seed]).reshape(iterations,2*iterations).astype(float)
-        else:
-            grid = np.zeros((iterations, iterations*2+pad))
-            center = math.floor((iterations*2+pad)/2)
-            grid[math.floor(iterations/2)][center] = init
+    def reset_init():
+        global gui
+        if gui.params['demo']:
+            gui.params['rule'] = 42
+            gui.params['iterations'] = 500
+            gui.params['kernel'] = np.array((
+                [0, 1, 0],
+                [1, 0, 1],
+                [0, 1, 0]), dtype="int")
+            gui.params['grid'] = np.zeros((gui.params['iterations'], gui.params['iterations']*2+pad))
+            center = math.floor((gui.params['iterations']*2+pad)/2)
+            gui.params['grid'][math.floor(gui.params['iterations']/2)][center] = init
+            gui.params['framerate'] = 100
+        else:                                                       # CHANGE THESE VALUES
+            gui.params['kernel'] = np.array((
+                [1, 1, 0],
+                [1, -1, 1],
+                [0, 1, 1]), dtype="int")
+            gui.params['framerate'] = int(args.framerate)
+            if gui.params['random_seed']:
+                prob_1 = gui.params['random_seed']
+                gui.params['grid'] = np.random.choice(2,2*gui.params['iterations']**2, p=[1-prob_1,prob_1]).reshape(gui.params['iterations'],2*gui.params['iterations']).astype(float)
+            else:
+                gui.params['grid'] = np.zeros((gui.params['iterations'], gui.params['iterations']*2+pad))
+                center = math.floor((gui.params['iterations']*2+pad)/2)
+                gui.params['grid'][math.floor(gui.params['iterations']/2)][center] = init
 
-    binary_rule = np.flip([rule >> i & 1 for i in range(7,-1,-1)])
-    # binary_rule = np.logical_not(binary_rule).astype(int)
+        gui.params['binary_rule'] = np.flip([gui.params['rule'] >> i & 1 for i in range(7,-1,-1)])
+        # binary_rule = np.logical_not(binary_rule).astype(int)
+
+        gui.params['reset'] = False
+
+    reset_init()
 
     print("---------")
-    print("Binary Rule: %s" % binary_rule)
-    print("Kernel:\n%s" % kernel)
-    if binary_rule[np.sum(kernel)] == 0 and binary_rule[0] == 1:
+    print("Binary Rule: %s" % gui.params['binary_rule'])
+    print("Kernel:\n%s" % gui.params['kernel'])
+    if gui.params['binary_rule'][np.sum(gui.params['kernel'])] == 0 and gui.params['binary_rule'][0] == 1:
         flag = input("SEIZURE WARNING! Proceed? (y/n): ")
         if flag not in 'yY':
             print("Leaving program")
@@ -69,12 +78,16 @@ if __name__ == '__main__':
 
     s = time.time()
     while True:
-        grid_correlated = cv2.filter2D(grid, -1, kernel).astype(int)
-        grid = binary_rule[grid_correlated].astype(float)
+        grid_correlated = cv2.filter2D(gui.params['grid'], -1, gui.params['kernel']).astype(int)
+        gui.params['grid'] = gui.params['binary_rule'][grid_correlated].astype(float)
         #grid_show = cv2.resize(grid, width=540, interpolation = cv2.INTER_NEAREST) 
-        grid_show = imutils.resize(grid,width=1000)
+        grid_show = imutils.resize(gui.params['grid'],width=1000)
         cv2.imshow("img",grid_show)
-        cv2.waitKey(int(1/framerate * 1000)) #ms
+        cv2.waitKey(int(1/gui.params['framerate'] * 1000)) #ms
+        gui.update_gui()
+        if gui.params['reset']:
+            reset_init()
+            gui.params['demo'] = False
         e = time.time()
         print('Framerate: %i FPS\r'%(1.0/(e-s)), end="")
         s = time.time()
