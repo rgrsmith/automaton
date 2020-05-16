@@ -43,9 +43,9 @@ if __name__ == '__main__':
         rule = int(args.rule)
         iterations = int(args.iterations)
         kernel = np.array((
-            [0, 1, 0],
-            [1, 0, 1],
-            [0, 1, 0]), dtype="int")
+            [0, 1, 2],
+            [64, 1, 4],
+            [32, 16, 8]), dtype="int")
         framerate = int(args.framerate)
         if args.random_seed:
             grid = np.random.choice(2,2*iterations**2, p=[1-args.random_seed,args.random_seed]).reshape(iterations,2*iterations).astype(float)
@@ -54,7 +54,7 @@ if __name__ == '__main__':
             center = math.floor((iterations*2+pad)/2)
             grid[math.floor(iterations/2)][center] = init
 
-    binary_rule = np.flip([rule >> i & 1 for i in range(7,-1,-1)])
+    binary_rule = np.flip([rule >> i & 1 for i in range(255,-1,-1)])
     # binary_rule = np.logical_not(binary_rule).astype(int)
 
     print("---------")
